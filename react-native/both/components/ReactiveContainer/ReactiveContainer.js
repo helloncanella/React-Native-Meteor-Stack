@@ -18,6 +18,7 @@ export default class ReactiveContainer extends React.Component {
         super(props)
         this.state = {
             connected: false,
+            reactiveData:{},
             view:{}
         }
     }    
@@ -73,17 +74,37 @@ export default class ReactiveContainer extends React.Component {
         })
     }
 
-    updateView(collectionName) {
 
-        var viewState = this.props.updateView()
-        
+    updateReactiveData(collectionName){
+
+        let reactiveData = Object.assign({}, this.state.reactiveData)
+     
+        reactiveData[collectionName] = ddpClient.collections[collectionName]
+
+
+        this.setState({reactiveData})
+
+        return Object.assign({},reactiveData)
+
+    }
+
+    updateView(collectionName) {
+     
+        let 
+            reactiveData = this.updateReactiveData(collectionName)
+            viewState = this.props.updateView(reactiveData)
+     
+
         this.setState({ view: Object.assign({}, viewState) })
        
     }
 
     render() {
-        let component = this.props.component
-        return <View className="reactive-container">{component}</View>
+        let 
+            component = this.props.component,
+            element = React.cloneElement(component, this.state.view)
+
+        return <View className="reactive-container">{element}</View>
     } 
 }
 

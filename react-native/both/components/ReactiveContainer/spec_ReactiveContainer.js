@@ -11,7 +11,7 @@ global.window = doc.defaultView
 
 const proxyquireStrict = proxyquire.noCallThru();
 
-xdescribe('ReactiveContainer', function () {
+describe('ReactiveContainer', function () {
     let ReactiveContainer, DDPClient
 
     let _fakeReactiveContainer = (DDPClientStubs) => {
@@ -84,54 +84,51 @@ xdescribe('ReactiveContainer', function () {
 
     });
 
-    // xit("renders view with the props returned by updateView callback ", function (done) {
+    // @TOFIX - solve problems
+    xit("renders view with the props returned by updateView callback ", function (done) {
            
         
-    //     let ReactiveContainer = _fakeReactiveContainer(stub())
+        let ReactiveContainer = _fakeReactiveContainer(stub())
 
-    //     let viewProperties = {
-    //         treco: 'batata',
-    //         vixe: 'maria',
-    //         any: 'qualquer'
-    //     }
+        let viewProperties = {
+            treco: 'batata',
+            vixe: 'maria',
+            any: 'qualquer'
+        }
 
        
-    //     class ViewElement extends React.Component {
-    //         render() {
-    //             let {treco, vixe, any} = this.props
+        class ViewElement extends React.Component {
+            render() {
+                let {treco, vixe, any} = this.props
 
-    //             console.log('AIAIAI')
-    //                          return (
-    //                 <View>
-    //                     <View className={treco}>{treco}</View>
-    //                     <View className={vixe}>{vixe}</View>
-    //                     <View className={any}>{any}</View>
-    //                 </View>
-    //             )
-    //         }
-    //     }
+                console.log('AIAIAI')
+                             return (
+                    <View>
+                        <View className={treco}>{treco}</View>
+                        <View className={vixe}>{vixe}</View>
+                        <View className={any}>{any}</View>
+                    </View>
+                )
+            }
+        }
 
-    //     var props = {
-    //         updateView: ()=>{},
-    //         collections: [],
-    //         component: (<ViewElement />)
-    //     }
+        var props = {
+            updateView: ()=>{},
+            collections: [],
+            component: (<ViewElement />)
+        }
 
-    //     let container = shallow(<ReactiveContainer {...props}/>) 
-    //     container.setState({
-    //         view: Object.assign({},viewProperties)
-    //     })
-
-      
-    //     expect(container.find('ViewElement')).to.length(1)
+        let container = shallow(<ReactiveContainer {...props}/>) 
+        container.setState({
+            view: Object.assign({},viewProperties)
+        })     
        
-      
-    //     console.log(container.nodes.props.children)
+       container.update()
+     
+        expect(container.find('.maria')).to.length(1)
+        // expect(container.find(`ViewElement.qualquer`)).to.length(1)
 
-    //     expect(container.find('.maria')).to.length(1)
-    //     // expect(container.find(`ViewElement.qualquer`)).to.length(1)
-
-    // });
+    });
 
 
 
