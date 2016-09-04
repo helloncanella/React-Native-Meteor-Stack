@@ -26,14 +26,14 @@ export default React.createClass({
         connected = false
       } else {
         this.makeSubscription();
-        this.observePosts();
+        this.observeCollections();
       }
       this.setState({ connected: connected });
     });
   },
 
   // This is just extremely simple. We're replacing the entire state whenever the collection changes
-  observePosts() {
+  observeCollections() {
     let observer = ddpClient.observe("posts");
     observer.added = (id) => {
       this.setState({posts: ddpClient.collections.posts})
