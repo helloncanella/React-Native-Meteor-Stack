@@ -16,6 +16,7 @@ export default class ReactiveContainer extends React.Component {
 
     constructor(props){
         super(props)
+        
         this.state = {
             connected: false,
             reactiveData:{},
@@ -42,7 +43,7 @@ export default class ReactiveContainer extends React.Component {
 
 
 
-    makeSubscription() {
+    makeSubscription() { 
 
         let {collections} = this.props
 
@@ -50,7 +51,7 @@ export default class ReactiveContainer extends React.Component {
             ddpClient.subscribe(collection, [], () => {
                 self.updateView(collection);
             });
-        })
+        })        
 
     }
 
@@ -70,8 +71,7 @@ export default class ReactiveContainer extends React.Component {
             observer.removed = (id, oldValue) => {
                 self.updateView(collection)
             }
-
-        })
+        })        
     }
 
 
@@ -81,9 +81,8 @@ export default class ReactiveContainer extends React.Component {
      
         reactiveData[collectionName] = ddpClient.collections[collectionName]
 
-
         this.setState({reactiveData})
-
+        
         return Object.assign({},reactiveData)
 
     }
@@ -92,14 +91,14 @@ export default class ReactiveContainer extends React.Component {
      
         let 
             reactiveData = this.updateReactiveData(collectionName)
-            viewState = this.props.updateView(reactiveData)
-     
+            viewState = this.props.updateView(reactiveData,ddpClient)
 
         this.setState({ view: Object.assign({}, viewState) })
-       
+        
     }
 
     render() {
+
         let 
             component = this.props.component,
             element = React.cloneElement(component, this.state.view)
